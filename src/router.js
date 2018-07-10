@@ -1,7 +1,8 @@
 import React from 'react';
 import {Router, Route, Switch} from 'dva/router';
-import IndexPage from './routes/IndexPage';
 import dynamic from 'dva/dynamic';
+import AllOverLayout from './components/index';
+import Login from './routes/Auth/login';
 
 const createRoutes = (config, index) => <Route key={index} {...config} />;
 
@@ -48,8 +49,12 @@ function RouterConfig({history, app}) {
   return (
     <Router history={history}>
       <Switch>
-        {Approutes.map ((item, index) => createRoutes (item, index))}
-        <Route path="/" exact component={IndexPage} />
+        <Route path="/login" component={Login} />
+        <AllOverLayout>
+          <Switch>
+            {Approutes.map ((item, index) => createRoutes (item, index))}
+          </Switch>
+        </AllOverLayout>
       </Switch>
     </Router>
   );
