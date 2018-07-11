@@ -3,12 +3,15 @@ import {Layout, Menu} from 'antd';
 import CreateMenu from './siderMenu';
 import {withRouter} from 'dva/router';
 import Breadcrumb from './Breadcrumb';
+import {connect} from 'dva';
 
 const {SubMenu} = Menu;
 const {Header, Content, Sider} = Layout;
 
 class AllOverLayout extends React.Component {
   render () {
+    const {system} = this.props;
+    console.log (system);
     return (
       <Layout>
         <Header className="header">
@@ -29,7 +32,10 @@ class AllOverLayout extends React.Component {
             <CreateMenu history={this.props.history} />
           </Sider>
           <Layout style={{padding: '0 24px 24px'}}>
-            <Breadcrumb history={this.props.history} />
+            <Breadcrumb
+              currentRoute={system.currentRoute}
+              history={this.props.history}
+            />
             <Content
               style={{
                 background: '#fff',
@@ -47,4 +53,8 @@ class AllOverLayout extends React.Component {
   }
 }
 
-export default withRouter (AllOverLayout);
+export default connect (({system}) => {
+  return {
+    system: system,
+  };
+}) (withRouter (AllOverLayout));

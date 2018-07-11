@@ -1,7 +1,7 @@
 import {getLogin} from '../../../services/login';
 
 export default {
-  namespace: 'system',
+  namespace: 'systemSet',
 
   state: {
     loginState: false,

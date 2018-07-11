@@ -1,5 +1,6 @@
 import React from 'react';
 import {Router, Route, Switch} from 'dva/router';
+import {connect} from 'dva';
 import dynamic from 'dva/dynamic';
 import AllOverLayout from './components/index';
 import Login from './routes/Auth/login';
@@ -8,7 +9,12 @@ const createRoutes = (config, index) => <Route key={index} {...config} />;
 
 // filter routes array
 const createRouteArr = (config, app) => {
+  console.log ();
   let routeArr = [];
+  app._store.dispatch ({
+    type: 'system/injectionRoutes',
+    payload: config,
+  });
   config.map (item => {
     let UserPageComponent = dynamic ({
       app,
